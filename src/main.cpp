@@ -15,7 +15,6 @@ String user_html = ""
 
 char*               ssid_pfix = (char*)"IOTther";
 
-const int           RELAY = 15;
 const int           pulseA = 12;
 const int           pulseB = 13;
 const int           pushSW = 2;
@@ -58,9 +57,6 @@ void publishData() {
     StaticJsonDocument<512> root;
     JsonObject data = root.createNestedObject("d");
 
-// USER CODE EXAMPLE : command handling
-    data["valve"] = digitalRead(RELAY) == 1 ? "on" : "off";
-// USER CODE EXAMPLE : command handling
 
     char dht_buffer[10];
     char dht_buffer2[10];
@@ -113,17 +109,7 @@ void handleUserCommand(JsonDocument* root) {
       encoderValue = map(tgtT, 10, 50, 0, 255);
       lastPublishMillis = - pubInterval;
     }
-// USER CODE EXAMPLE : status/change update
-// code if any of device status changes to notify the change
-    if(d.containsKey("valve")) {
-        if (strcmp(d["valve"], "on")) {
-            digitalWrite(RELAY, LOW);
-        } else {
-            digitalWrite(RELAY, HIGH);
-        }
-        lastPublishMillis = - pubInterval;
-    }
-// USER CODE EXAMPLE
+
 }
 
 void message(char* topic, byte* payload, unsigned int payloadLength) {
@@ -149,10 +135,6 @@ void message(char* topic, byte* payload, unsigned int payloadLength) {
 }
 
 void setup() {
-    Serial.begin(115200);
-// USER CODE EXAMPLE : meta data update
-    pinMode(RELAY, OUTPUT);
-// USER CODE EXAMPLE
     Serial.begin(115200);
     pinMode(pulseA, INPUT_PULLUP);
     pinMode(pulseB, INPUT_PULLUP);
@@ -205,12 +187,6 @@ void loop() {
     }
     readDHT22();
     Serial.printf("%.1f\t %.1f\n", temperature, humidity);
-
-    display.clear();
-    display.drawString(0, 0, "T:"+(String)temperature+"C ");
-    display.drawString(0, 15, "H:"+(String)humidity+"% ");
-    display.display();    
-    delay(1000);
 
     
 }
