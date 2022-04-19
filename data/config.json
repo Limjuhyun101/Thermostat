@@ -1,0 +1,12 @@
+{
+   "meta":{
+      "pubInterval":"5000"
+   },
+   "ssid":"IoT518",
+   "w_pw":"iot123456",
+   "org":"i2h9yw",
+   "devType":"vDev",
+   "devId":"dev01",
+   "token":"passw0rd",
+   "config":"done"
+}
