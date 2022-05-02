@@ -6,12 +6,7 @@
 
 SSD1306               display(0x3c, 4, 5, GEOMETRY_128_32);
 
-String user_html = ""
-// USER CODE EXAMPLE : your custom config variable 
-// in meta.XXXXX, XXXXX should match to ArduinoJson index to access
-    "<p><input type='text' name='meta.yourVar' placeholder='Your Custom Config'>";
-                    ;
-// for meta.XXXXX, this var is the C variable to hold the XXXXX
+String user_html = "";
 
 char*               ssid_pfix = (char*)"IOTther";
 
@@ -125,10 +120,7 @@ void message(char* topic, byte* payload, unsigned int payloadLength) {
     handleIOTCommand(topic, &root);
     if (!strncmp(updateTopic, topic, cmdBaseLen)) {
 // USER CODE EXAMPLE : meta data update
-// If any meta data updated on the Internet, it can be stored to local variable to use for the logic
-// in cfg["meta"]["XXXXX"], XXXXX should match to one in the user_html
-        
-// USER CODE EXAMPLE
+
     } else if (!strncmp(commandTopic, topic, cmdBaseLen)) {            // strcmp return 0 if both string matches
         handleUserCommand(&root);
     }
